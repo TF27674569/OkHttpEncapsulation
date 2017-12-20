@@ -1,0 +1,16 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+
+    package="fsmobilecorebankdev.formssi.com.ok_modlule">
+
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:supportsRtl="true">
+
+        <activity
+            android:name="org.ok.permission.PermissionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Dialog" />
+    </application>
+
+</manifest>
