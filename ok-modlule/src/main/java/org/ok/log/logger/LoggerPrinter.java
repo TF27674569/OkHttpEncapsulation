@@ -1,4 +1,4 @@
-package org.ok.log.mode;
+package org.ok.log.logger;
 
 import org.json.JSONArray;
 import org.json.JSONException;

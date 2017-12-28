@@ -1,11 +1,11 @@
-package org.ok.log.mode;
+package org.ok.log.logger;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 
-import static org.ok.log.mode.LoggerPrinter.*;
+import static org.ok.log.logger.LoggerPrinter.*;
 
 
 final class Utils {

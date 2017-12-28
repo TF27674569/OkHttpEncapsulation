@@ -7,6 +7,7 @@ import org.ok.http.HttpUtils;
 import org.ok.http.engin.OkHttpEngin;
 import org.ok.http.mode.callback.Callback;
 import org.ok.http.mode.decortor.ParamsDecortor;
+import org.ok.http.mode.json.FastJsonParse;
 import org.ok.log.L;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 桥接引擎 可以自定义
         HttpUtils.init(new OkHttpEngin());
+        HttpUtils.initParse(new FastJsonParse());
 
         HttpUtils.with(this)
                 .url("http://www.baidu.com")

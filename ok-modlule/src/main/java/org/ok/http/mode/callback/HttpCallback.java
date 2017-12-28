@@ -4,7 +4,7 @@ package org.ok.http.mode.callback;
 import android.os.Handler;
 import android.os.Looper;
 
-import org.ok.http.mode.utils.Utils;
+import org.ok.http.mode.json.JsonUtils;
 
 import java.io.File;
 
@@ -19,6 +19,7 @@ import java.io.File;
  */
 
 public class HttpCallback<T> implements BaseCallback {
+
     private Callback.CommonCallback<T> mCallback;
     private Callback.ProgressCallback<T> mProgressCallback;
     private Handler mHandler;
@@ -59,7 +60,6 @@ public class HttpCallback<T> implements BaseCallback {
                 }
             });
         }
-
     }
 
     // 文件结果
@@ -86,13 +86,22 @@ public class HttpCallback<T> implements BaseCallback {
     // json结果
     @Override
     public void onSuccess(final String url, final String data) {
+
+        if (mProgressCallback == null && mCallback == null) return;
+
         T result = null;
         // 解析json 放在子线程能提高效率
         if (mProgressCallback != null) {
-            result = (T) Utils.gson(data, Utils.analysisInterfaceInfo(mProgressCallback, Callback.ProgressCallback.class.getName()));
+            // 拿class
+            Class<?> clazz = JsonUtils.analysisInterfaceInfo(mProgressCallback, Callback.ProgressCallback.class.getName());
+            // 解析
+            result = parse(data, clazz);
         }
         if (mCallback != null) {
-            result = (T) Utils.gson(data, Utils.analysisInterfaceInfo(mCallback, Callback.CommonCallback.class.getName()));
+            // 拿class
+            Class<?> clazz = JsonUtils.analysisInterfaceInfo(mCallback, Callback.CommonCallback.class.getName());
+            // 解析
+            result = parse(data, clazz);
         }
 
         // 结果回调放在主线程
@@ -109,6 +118,25 @@ public class HttpCallback<T> implements BaseCallback {
             }
         });
 
+    }
+
+    // 解析
+    private T parse(String data, Class<?> clazz) {
+        T result = null;
+        // 解析成list
+        try {
+            result = (T) JsonUtils.gsonToArr(data, clazz);
+        } catch (Exception e) {
+            //解析list失败后，解析成普通对象
+            if (clazz == String.class) {
+                // String 不用解析
+                result = (T) data;
+            } else {
+                // 解析为其他对象
+                result = (T) JsonUtils.gsonToObj(data, clazz);
+            }
+        }
+        return result;
     }
 
     // 成功处理

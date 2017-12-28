@@ -1,9 +1,9 @@
 package org.ok.log;
 
 
-import org.ok.log.mode.AndroidLogAdapter;
-import org.ok.log.mode.LoggerPrinter;
-import org.ok.log.mode.Printer;
+import org.ok.log.logger.AndroidLogAdapter;
+import org.ok.log.logger.LoggerPrinter;
+import org.ok.log.logger.Printer;
 
 public final class L {
 

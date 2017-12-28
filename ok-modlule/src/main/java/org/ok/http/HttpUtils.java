@@ -6,6 +6,8 @@ import org.ok.http.mode.base.AbsDecortor;
 import org.ok.http.mode.base.IHttpEngin;
 import org.ok.http.mode.callback.Callback;
 import org.ok.http.mode.callback.HttpCallback;
+import org.ok.http.mode.json.JsonParse;
+import org.ok.http.mode.json.JsonUtils;
 import org.ok.http.mode.params.HttpConfig;
 import org.ok.http.mode.params.HttpParams;
 
@@ -29,6 +31,11 @@ public class HttpUtils {
     // 请求基本引擎
     public static void init(IHttpEngin engin) {
         sEngin = engin;
+    }
+
+    // 初始化解析器
+    public static void initParse(JsonParse jsonParse) {
+        JsonUtils.initJsonParse(jsonParse);
     }
 
     public static IHttpEngin getBaseEngin() {
